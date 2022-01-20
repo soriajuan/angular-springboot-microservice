@@ -1,0 +1,7 @@
+cors:
+  allowedOrigins: ${CORS_ALLOWED_ORIGINS:http://localhost:4200,https://localhost:4200}
+
+spring:
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://mongo:mongo@localhost:27017/mongo?authSource=admin}
