@@ -16,6 +16,7 @@
 
     <properties>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <snakeyaml.version>2.0</snakeyaml.version>
     </properties>
 
     <dependencyManagement>
