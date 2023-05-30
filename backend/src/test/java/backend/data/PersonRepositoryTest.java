@@ -1,12 +1,7 @@
 package backend.data;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-
+import backend.domain.EntityNotFoundException;
+import backend.domain.entity.Person;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -18,15 +13,19 @@ import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import backend.domain.EntityNotFoundException;
-import backend.domain.entity.Person;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @Testcontainers
 public class PersonRepositoryTest {
 
 	@Container
-	static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:4.2");
+	static final MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:4.2");
 
 	@DynamicPropertySource
 	static void setProperties(DynamicPropertyRegistry registry) {
@@ -80,9 +79,7 @@ public class PersonRepositoryTest {
 	@Test
 	public void findByIdNotFound() {
 		String nonExistingId = "NonExistingId";
-		Exception exception = Assertions.assertThrows(EntityNotFoundException.class, () -> {
-			repository.findById(nonExistingId);
-		});
+		Exception exception = Assertions.assertThrows(EntityNotFoundException.class, () -> repository.findById(nonExistingId));
 		assertEquals("entity person not found under id = " + nonExistingId, exception.getMessage());
 	}
 
@@ -120,9 +117,7 @@ public class PersonRepositoryTest {
 	@Test
 	public void updateNotFound() {
 		String nonExistingId = "NonExistingId";
-		Exception exception = Assertions.assertThrows(EntityNotFoundException.class, () -> {
-			repository.update(nonExistingId, Person.builder().build());
-		});
+		Exception exception = Assertions.assertThrows(EntityNotFoundException.class, () -> repository.update(nonExistingId, Person.builder().build()));
 		assertEquals("entity person not found under id = " + nonExistingId, exception.getMessage());
 	}
 
@@ -132,9 +127,7 @@ public class PersonRepositoryTest {
 
 		repository.deleteById(cs.getId());
 
-		Exception exception = Assertions.assertThrows(EntityNotFoundException.class, () -> {
-			repository.findById(cs.getId());
-		});
+		Exception exception = Assertions.assertThrows(EntityNotFoundException.class, () -> repository.findById(cs.getId()));
 		assertEquals("entity person not found under id = " + cs.getId(), exception.getMessage());
 	}
 

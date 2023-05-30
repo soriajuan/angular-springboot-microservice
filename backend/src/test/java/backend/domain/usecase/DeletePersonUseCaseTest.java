@@ -1,12 +1,7 @@
 package backend.domain.usecase;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-
+import backend.domain.EntityNotFoundException;
+import backend.domain.PersonData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,8 +9,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import backend.domain.EntityNotFoundException;
-import backend.domain.PersonData;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 @ExtendWith(MockitoExtension.class)
 public class DeletePersonUseCaseTest {
@@ -28,9 +27,7 @@ public class DeletePersonUseCaseTest {
 
 	@Test
 	public void deleteByIdThrowExceptionWhenIdIsNull() {
-		IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-			useCase.deleteById(null);
-		});
+		IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> useCase.deleteById(null));
 		assertEquals("person id cannot be null", exception.getMessage());
 	}
 
@@ -41,9 +38,7 @@ public class DeletePersonUseCaseTest {
 		doThrow(new EntityNotFoundException("entity person not found under id = " + id)).when(data)
 				.deleteById(anyString());
 
-		EntityNotFoundException exception = Assertions.assertThrows(EntityNotFoundException.class, () -> {
-			useCase.deleteById(id);
-		});
+		EntityNotFoundException exception = Assertions.assertThrows(EntityNotFoundException.class, () -> useCase.deleteById(id));
 		assertEquals("entity person not found under id = " + id, exception.getMessage());
 
 		verify(data).deleteById(anyString());

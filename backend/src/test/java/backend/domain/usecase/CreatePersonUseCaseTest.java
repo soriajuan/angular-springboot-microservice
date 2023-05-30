@@ -1,14 +1,7 @@
 package backend.domain.usecase;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-
-import java.time.LocalDate;
-
+import backend.domain.PersonData;
+import backend.domain.entity.Person;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,8 +9,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import backend.domain.PersonData;
-import backend.domain.entity.Person;
+import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class CreatePersonUseCaseTest {
@@ -30,9 +29,7 @@ public class CreatePersonUseCaseTest {
 
 	@Test
 	public void throwExceptionWhenNull() {
-		IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-			useCase.create(null);
-		});
+		IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> useCase.create(null));
 		assertEquals("person to create cannot be null", exception.getMessage());
 	}
 

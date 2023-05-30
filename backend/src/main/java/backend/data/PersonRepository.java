@@ -21,12 +21,12 @@ class PersonRepository implements PersonData {
 
 	@Override
 	public List<Person> findAll() {
-		return mongoRepository.findAll().stream().map(e -> mapper.toPerson(e)).collect(Collectors.toList());
+		return mongoRepository.findAll().stream().map(mapper::toPerson).collect(Collectors.toList());
 	}
 
 	@Override
 	public Person findById(String id) {
-		return mongoRepository.findById(id).map(e -> mapper.toPerson(e))
+		return mongoRepository.findById(id).map(mapper::toPerson)
 				.orElseThrow(() -> new EntityNotFoundException(String.format(ENTITY_NOT_FOUND_UNDER_ID_MESSAGE, id)));
 	}
 

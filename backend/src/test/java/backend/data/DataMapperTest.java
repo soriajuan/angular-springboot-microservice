@@ -12,7 +12,7 @@ import backend.domain.entity.Person;
 
 public class DataMapperTest {
 
-	DataMapper mapper = Mappers.getMapper(DataMapper.class);
+	final DataMapper mapper = Mappers.getMapper(DataMapper.class);
 
 	static Person person;
 	static PersonMongo personMongo;

@@ -2,8 +2,6 @@ package backend.domain;
 
 public class EntityNotFoundException extends RuntimeException {
 
-	private static final long serialVersionUID = 872268864924063486L;
-
 	public EntityNotFoundException(String message) {
 		super(message);
 	}

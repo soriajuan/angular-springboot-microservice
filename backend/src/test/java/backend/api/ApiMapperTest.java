@@ -15,7 +15,7 @@ import backend.domain.entity.Person;
 
 public class ApiMapperTest {
 
-	ApiMapper mapper = Mappers.getMapper(ApiMapper.class);
+	final ApiMapper mapper = Mappers.getMapper(ApiMapper.class);
 
 	static Person person;
 	static PersonGetResponsePayload personGetResponsePayload;
